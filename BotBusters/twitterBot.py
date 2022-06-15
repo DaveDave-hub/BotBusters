@@ -5,14 +5,14 @@ import tweepy
 from datetime import datetime
 
 twitter_keys = {
-    'consumer_key': os.environ.get('api_key', 'wID1lvpoGvyRHCurdwCxuwSYD'),
-    'consumer_secret': os.environ.get('api_secret', 'rjhYAd4HkxCY3ZVNR2CL9qSDDgUAYuBWBSDLMlOjcBd2T4vOso'),
+    'consumer_key': os.environ.get('consumer_key', 'wID1lvpoGvyRHCurdwCxuwSYD'),
+    'consumer_secret': os.environ.get('consumer_secret', 'rjhYAd4HkxCY3ZVNR2CL9qSDDgUAYuBWBSDLMlOjcBd2T4vOso'),
     'access_token_key': os.environ.get('access_token_key', 'AAAAAAAAAAAAAAAAAAAAAOPKbgEAAAAAXBC63C72IHZ9v1TZHeEvSz5e0Mc%3DMO2wMFHNMwwjVDQKwQaUJIN8hQrF4N24CwL0bkoPXKoW3qjlCB'),
     'access_token_secret': os.environ.get('access_token_secret', None)
 }
 
 #setting connection for Twitter API - usk for tokens
-auth = tweepy.OAuthHandler(twitter_keys['consumer_key', twitter_keys['consumer_secret']])
+auth = tweepy.OAuthHandler(twitter_keys['consumer_key'], twitter_keys['consumer_secret'])
 auth.set_access_token(twitter_keys['access_token_key'], twitter_keys['access_token_secret'])
 
 #creates tweepy API instance
@@ -43,7 +43,9 @@ def get_factors(screen_name):
         #if else statements to check conditions
 
         true_conditions = 0
-        if verified_acocunt == True
+        number_of_factors = 3
+        percentage = 0
+        if verified_acocunt == True:
             return 'Not a bot'
 
         if verified_acocunt == False:
@@ -55,10 +57,13 @@ def get_factors(screen_name):
 
             if friend_number <= 10 and followers_number >= 10000:
                 true_conditions += 1
+            percentage = (true_conditions * 100) / number_of_factors
+            return percentage
+
 
     except:
         return 'User not found'
-
+"""
 def bot_prediction(twitter_username):
 
     user_factors = get_factors(twitter_username)
@@ -69,4 +74,6 @@ def bot_prediction(twitter_username):
 
     else:
         factors =['verfied-account', 'account age', 'followers number', 'friends number', 'tweets per day', 'posting time']
+"""
+
 
