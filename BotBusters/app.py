@@ -17,20 +17,20 @@ def likelihood(percentage):
 
 @app.route('/')
 def index():  # put application's code here
-    return flask.render_template('index.html')
+    return flask.render_template('MainPage.html')
 
 @app.route('/verify', methods = ['GET', 'POST'])
 def verify():
-    username = flask.request.form['username']
-    message_for_user = f'Verification of the user {username} '
+    handle = flask.request.form['handle']
+    message_for_user = f'Verification of the user @{handle} '
 
-    if get_factors(username) == 'User not found':
-        verification =[f'User {username} not found']
+    if get_factors(handle) == 'User not found':
+        verification =[f'User @{handle} not found']
     else:
-        verification = [likelihood(get_factors(username)),
-                        f'Probability of being a bot: {get_factors(username)}']
+        verification = [likelihood(get_factors(handle)),
+                        f'Probability of being a bot: {get_factors(handle)}%']
 
-    return flask.render_template('index.html', prediction = verification[0], probability = verification[1], message_for_user = message_for_user)
+    return flask.render_template('MainPage.html', prediction = verification[0], probability = verification[1], message_for_user = message_for_user)
 
 if __name__ == '__main__':
     app.run()

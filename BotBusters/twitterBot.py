@@ -7,8 +7,8 @@ from datetime import datetime
 twitter_keys = {
     'consumer_key': os.environ.get('consumer_key', 'wID1lvpoGvyRHCurdwCxuwSYD'),
     'consumer_secret': os.environ.get('consumer_secret', 'rjhYAd4HkxCY3ZVNR2CL9qSDDgUAYuBWBSDLMlOjcBd2T4vOso'),
-    'access_token_key': os.environ.get('access_token_key', 'AAAAAAAAAAAAAAAAAAAAAOPKbgEAAAAAXBC63C72IHZ9v1TZHeEvSz5e0Mc%3DMO2wMFHNMwwjVDQKwQaUJIN8hQrF4N24CwL0bkoPXKoW3qjlCB'),
-    'access_token_secret': os.environ.get('access_token_secret', None)
+    'access_token_key': os.environ.get('access_token_key', '1516738608627171330-lW2tgAZ7vwHiawraKBNqNbvtITlV0X'),
+    'access_token_secret': os.environ.get('access_token_secret', 'UDNJfAtVJT9s9ttXBcyHKBgE0Dh9JKKu9ctxi5Jef8ONn')
 }
 
 #setting connection for Twitter API - usk for tokens
@@ -26,7 +26,7 @@ def get_factors(screen_name):
         print(user)
 
         #factors used for verification
-        verified_acocunt = user.verified
+        verified_account = user.verified
         account_age =(datetime.now() - user.created_at).days #provided in days
         followers_number = user.follower_count
         friend_number = user.friends.count
@@ -38,17 +38,17 @@ def get_factors(screen_name):
         posting_time = int(user.created_at.strftime("%H")) #strftime means date to string, we need hour only
 
         # list of factors
-        account_factors =[verified_acocunt, account_age, followers_number, friend_number, tweets_per_day, posting_time]
+        account_factors =[verified_account, account_age, followers_number, friend_number, tweets_per_day, posting_time]
 
         #if else statements to check conditions
 
         true_conditions = 0
         number_of_factors = 3
         percentage = 0
-        if verified_acocunt == True:
+        if verified_account == True:
             return 'Not a bot'
 
-        if verified_acocunt == False:
+        elif verified_account == False:
             if tweets_per_day > 100:
                 true_conditions += 1
 
@@ -58,11 +58,10 @@ def get_factors(screen_name):
             if friend_number <= 10 and followers_number >= 10000:
                 true_conditions += 1
             percentage = (true_conditions * 100) / number_of_factors
-            return percentage
-
 
     except:
         return 'User not found'
+    return percentage
 """
 def bot_prediction(twitter_username):
 
