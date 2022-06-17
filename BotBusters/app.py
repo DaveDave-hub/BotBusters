@@ -27,13 +27,14 @@ def verify():
     if get_factors(handle) == 'User not found':
         verification = f'User @{handle} not found'
     else:
-        verification = [likelihood(account_verification(handle)),
-                        f'Probability of being a bot: {account_verification(handle)}%']
-    print (get_factors(handle))
-    print (account_verification(handle))
+        verdict = likelihood(account_verification(handle))
+        verification = f'Probability of being a bot: {account_verification(handle)}%'
+
+    print (message_for_user)
+    print (verdict)
     print (verification)
 
-    return flask.render_template('MainPage.html', message_for_user = message_for_user, probability = verification)
+    return flask.render_template('MainPage.html', message_for_user = message_for_user, verdict = verdict, probability = verification)
 
 if __name__ == '__main__':
     app.run()
