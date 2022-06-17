@@ -22,15 +22,18 @@ def index():  # put application's code here
 @app.route('/verify', methods = ['GET', 'POST'])
 def verify():
     handle = flask.request.form['handle']
-    message_for_user = f'Verification of the user @{handle} '
+    message_for_user = f'@{handle}'
 
     if get_factors(handle) == 'User not found':
-        verification =[f'User @{handle} not found']
+        verification = f'User @{handle} not found'
     else:
         verification = [likelihood(account_verification(handle)),
                         f'Probability of being a bot: {account_verification(handle)}%']
+    print (get_factors(handle))
+    print (account_verification(handle))
+    print (verification)
 
-    return flask.render_template('MainPage.html', probability = verification, message_for_user = message_for_user)
+    return flask.render_template('MainPage.html', message_for_user = message_for_user, probability = verification)
 
 if __name__ == '__main__':
     app.run()
