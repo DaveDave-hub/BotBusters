@@ -1,6 +1,6 @@
 import flask
 from flask import Flask, render_template
-from twitterBot import get_factors
+from twitterBot import get_factors, account_verification
 app = Flask(__name__)
 
 def likelihood(percentage):
@@ -27,10 +27,10 @@ def verify():
     if get_factors(handle) == 'User not found':
         verification =[f'User @{handle} not found']
     else:
-        verification = [likelihood(get_factors(handle)),
-                        f'Probability of being a bot: {get_factors(handle)}%']
+        verification = [likelihood(account_verification(handle)),
+                        f'Probability of being a bot: {account_verification(handle)}%']
 
-    return flask.render_template('MainPage.html', prediction = verification[0], probability = verification[1], message_for_user = message_for_user)
+    return flask.render_template('MainPage.html', probability = verification, message_for_user = message_for_user)
 
 if __name__ == '__main__':
     app.run()

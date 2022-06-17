@@ -40,28 +40,43 @@ def get_factors(screen_name):
         # list of factors
         account_factors =[verified_account, account_age, followers_number, friend_number, tweets_per_day, posting_time]
 
-        #if else statements to check conditions
+
+    except:
+        return 'User not found'
+
+    return account_factors if len(account_factors) == 6 else f'User not found'
+
+def account_verification(twitter_handle):
+    user_factors = get_factors(twitter_handle)
+
+    if user_factors == 'User not found':
+        return 'User not found'
+
+    else:
+        factors = ['verified account', 'account age', 'followers number', 'friend number', 'tweets per day', 'posting time']
 
         true_conditions = 0
         number_of_factors = 3
         percentage = 0
-        if verified_account == True:
+        #verified account
+        if user_factors[0] == True:
             return 'Not a bot'
 
-        elif verified_account == False:
-            if tweets_per_day > 100:
+        elif user_factors[0] == False:
+            #tweets per day
+            if user_factors[4] > 100:
                 true_conditions += 1
 
-            if account_age <= 365:
+            #account age
+            if user_factors[1] <= 365:
                 true_conditions += 1
 
-            if friend_number <= 10 and followers_number >= 10000:
+            #friends and followers number
+            if user_factors[3] <= 10 and user_factors[2] >= 10000:
                 true_conditions += 1
             percentage = (true_conditions * 100) / number_of_factors
+            return percentage
 
-    except:
-        return 'User not found'
-    return percentage
 """
 def bot_prediction(twitter_username):
 
