@@ -25,6 +25,7 @@ def verify():
     message_for_user = f'@{handle}'
 
     if get_factors(handle) == 'User not found':
+        verdict = 'User not found!'
         verification = f'User @{handle} not found'
     else:
         verdict = likelihood(account_verification(handle))
